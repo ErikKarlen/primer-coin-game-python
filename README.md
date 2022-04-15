@@ -12,7 +12,12 @@ To run the simulator you just need Python 3.6+ installed.
 ### Installing
 
 Go to https://www.python.org/ for instruction how to install Python on your machine.
-Then just clone the repo and you should be able to run it. To clone you can use:
+Use pip to install the package, e.g.:
+```
+# python3 -m pip install --upgrade primer-coin-game
+```
+
+Another way to install it is by manually cloning the repo and you should be able to run it. To clone you can use:
 ```
 # git clone https://github.com/ErikKarlen/primer-coin-game-python.git
 ```
