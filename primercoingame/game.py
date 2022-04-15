@@ -2,8 +2,14 @@ from random import random
 
 
 class PrimerCoinGame:
-
-    def __init__(self, starting_flips=100, cheater_blob_chance=0.5, cheater_heads_chance=0.75, bonus_flips=15, penalty_flips=30):
+    def __init__(
+        self,
+        starting_flips,
+        cheater_blob_chance,
+        cheater_heads_chance,
+        bonus_flips,
+        penalty_flips,
+    ):
         self.starting_flips = starting_flips
         self.flips_left = starting_flips
         self.cheater_blob_chance = max(0, min(cheater_blob_chance, 1))
@@ -14,14 +20,16 @@ class PrimerCoinGame:
         self.score = 0
 
         self._new_round()
-    
+
     def __str__(self):
-        return f"Round: {self.rounds}\n" \
-               f"Score: {self.score}\n" \
-               f"Flips: {self.flips_left}\n" \
-               f"Heads: {self.heads}\n" \
-               f"Tails: {self.tails}\n"
-    
+        return (
+            f"Round: {self.rounds}\n"
+            f"Score: {self.score}\n"
+            f"Flips: {self.flips_left}\n"
+            f"Heads: {self.heads}\n"
+            f"Tails: {self.tails}\n"
+        )
+
     def __repr__(self):
         return str(self)
 
@@ -51,7 +59,7 @@ class PrimerCoinGame:
 
     def flip1(self):
         return self._flipX(1)
- 
+
     def flip5(self):
         return self._flipX(5)
 

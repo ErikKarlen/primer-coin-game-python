@@ -23,9 +23,16 @@ def generate_action(num_heads, num_tails):
     else:
         return Action.LABEL_FAIR
 
+
 def main(args):
     wins = 0
-    pcg = PrimerCoinGame(starting_flips=100, cheater_blob_chance=0.5, cheater_heads_chance=0.75, bonus_flips=15, penalty_flips=30)
+    pcg = PrimerCoinGame(
+        starting_flips=100,
+        cheater_blob_chance=0.5,
+        cheater_heads_chance=0.75,
+        bonus_flips=15,
+        penalty_flips=30,
+    )
     while pcg.flips_left > 0:
         print(pcg)
         action = generate_action(pcg.heads, pcg.tails)
@@ -41,6 +48,7 @@ def main(args):
         if action == Action.FLIP5:
             pcg.flip5()
     print(pcg)
+
 
 if __name__ == "__main__":
     main(sys.argv)
