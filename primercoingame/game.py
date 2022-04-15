@@ -1,70 +1,78 @@
-from enum import Enum
-from random import randrange, random
-
-
-class Action(Enum):
-    FLIP_1 = 0
-    FLIP_5 = 1
-    LABEL_FAIR = 2
-    LABEL_CHEATER = 3
-
-
-class GameState(Enum):
-    PLAYING = 0
-    GAME_OVER = 1
-    GAME_WIN = 2
+from random import random
 
 
 class PrimerCoinGame:
 
-    def __init__(self, flips=100, cheater_chance=0.5, bonus_flips=15, penalty_flips=30):
-        self.flips = flips
-        self.cheater_chance = cheater_chance
+    def __init__(self, starting_flips=100, cheater_blob_chance=0.5, cheater_heads_chance=0.75, bonus_flips=15, penalty_flips=30):
+        self.starting_flips = starting_flips
+        self.flips_left = starting_flips
+        self.cheater_blob_chance = max(0, min(cheater_blob_chance, 1))
+        self.cheater_heads_chance = max(0, min(cheater_heads_chance, 1))
         self.bonus_flips = bonus_flips
         self.penalty_flips = penalty_flips
         self.rounds = 0
         self.score = 0
+
+        self._new_round()
+    
+    def __str__(self):
+        return f"Round: {self.rounds}\n" \
+               f"Score: {self.score}\n" \
+               f"Flips: {self.flips_left}\n" \
+               f"Heads: {self.heads}\n" \
+               f"Tails: {self.tails}\n"
+    
+    def __repr__(self):
+        return str(self)
+
+    def _new_round(self):
+        self.rounds += 1
         self.heads = 0
         self.tails = 0
-        self.game_state = GameState.PLAYING
-        self.new_round()
+        self._current_blob_is_cheater = random() < self.cheater_blob_chance
 
-    def new_round(self):
-        self.rounds += 1
-        self.current_blob_is_cheater = random() < self.cheater_chance
-
-    def check_game_state(self):
-        if self.flips <= 0:
-            self.rounds += 1
-            self.game_state = GameState.GAME_OVER
-
-    def flip(self, num_flips=1):
+    def _do_flips(self, num_flips):
+        heads_chance = 0.5
+        if self._current_blob_is_cheater:
+            heads_chance = self.cheater_heads_chance
         for _ in range(num_flips):
-            if (randrange(0, 2)):
+            if random() < heads_chance:
                 self.heads += 1
             else:
                 self.tails += 1
-            self.flips -= 1
-            self.check_game_state()
+            self.flips_left -= 1
 
-    def handle_action(self, action: Action):
-        if action == Action.FLIP_1:
-            self.flip()
-        elif action == Action.FLIP_5:
-            self.flip(num_flips=5)
-        elif action == Action.LABEL_FAIR:
-            if self.current_blob_is_cheater:
-                self.flips -= self.penalty_flips
-                self.check_game_state()
-            else:
-                self.score += 1
-            self.new_round()
-        elif action == Action.LABEL_CHEATER:
-            if self.current_blob_is_cheater:
-                self.score += 1
-                self.game_state = GameState.GAME_WIN
-            else:
-                self.game_state = GameState.GAME_OVER
-            self.new_round()
+    def _flipX(self, x):
+        if self.flips_left < x:
+            return False
+        else:
+            self._do_flips(x)
+            return True
 
-        return self.game_state
+    def flip1(self):
+        return self._flipX(1)
+ 
+    def flip5(self):
+        return self._flipX(5)
+
+    def label_fair(self):
+        correct_label = False
+        if self._current_blob_is_cheater:
+            self.flips_left -= self.penalty_flips
+        else:
+            self.flips_left += self.bonus_flips
+            self.score += 1
+            correct_label = True
+        self._new_round()
+        return correct_label
+
+    def label_cheater(self):
+        correct_label = False
+        if self._current_blob_is_cheater:
+            self.flips_left += self.bonus_flips
+            self.score += 1
+            correct_label = True
+        else:
+            self.flips_left -= self.penalty_flips
+        self._new_round()
+        return correct_label
