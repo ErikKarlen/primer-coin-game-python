@@ -2,13 +2,13 @@ import unittest
 
 from primercoingame import PrimerCoinGame
 
-class Test_PrimerCoinGame(unittest.TestCase):
 
+class Test_PrimerCoinGame(unittest.TestCase):
     def test_flip1(self):
         pcg = PrimerCoinGame(100, 0.5, 0.75, 30, 15)
         pcg.flip1()
         self.assertEqual(pcg.flips_left, 99)
-    
+
     def test_flip5(self):
         pcg = PrimerCoinGame(100, 0.5, 0.75, 30, 15)
         pcg.flip5()

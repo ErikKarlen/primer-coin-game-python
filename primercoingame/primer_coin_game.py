@@ -9,7 +9,7 @@ class PrimerCoinGame:
     In the game there is a blob that is either fair or a cheater and the
     goal of the player is to guess which one the blob is. To find this
     out the player can let the blob flip coins and see the results of
-    the flips. For every correct label the player gives it receives 
+    the flips. For every correct label the player gives it receives
     bonus flips and for every incorrect it is penalised with losing some
     flips. The player starts with a limited number of initial flips.
 
