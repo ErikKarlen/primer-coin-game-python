@@ -5,19 +5,6 @@ import primercoingame
 
 class Test_PrimerCoinGame(unittest.TestCase):
 
-    """
-        starting_flips : int
-            The number of flips the player starts with
-        cheater_blob_chance : float
-            The chance that a blob will be a cheater
-        cheater_heads_chance : float
-            The chance that a cheater will flip a head
-        bonus_flips : int
-            The number of flips the player gets for a correct guess
-        penalty_flips : int
-            The number of flips the player will lose for a wrong guess
-            """
-
     def test_flip1(self):
         pcg = PrimerCoinGame(100, 0.5, 0.75, 30, 15)
         pcg.flip1()
