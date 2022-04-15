@@ -1,5 +1,4 @@
 import sys
-import time
 from enum import Enum
 
 from primercoingame import PrimerCoinGame
@@ -13,19 +12,36 @@ class Action(Enum):
 
 
 def generate_action(num_heads, num_tails):
-    flips = num_heads + num_tails
-    if flips <= 5:
+    """
+    Generates an action given the current number of heads and tails
+
+    Parameters
+    ----------
+    num_heads : int
+        Number of heads seen so far for current blob
+    num_tails : int
+        Number of tails seen so far for current blob
+    """
+    num_flips = num_heads + num_tails
+    if num_flips <= 5:
         return Action.FLIP5
-    elif flips < 10:
+    elif num_flips < 10:
         return Action.FLIP1
-    elif flips >= 10 and (num_tails == 0 or num_heads / num_tails > 1):
+    elif num_flips >= 10 and (num_tails == 0 or num_heads / num_tails > 1):
         return Action.LABEL_CHEATER
     else:
         return Action.LABEL_FAIR
 
 
 def main(args):
-    wins = 0
+    """
+    The main function for simulating the Primer Coin Game
+
+    Parameters
+    ----------
+    args : list
+        list of input arguments
+    """
     pcg = PrimerCoinGame(
         starting_flips=100,
         cheater_blob_chance=0.5,
@@ -34,20 +50,16 @@ def main(args):
         penalty_flips=30,
     )
     while pcg.flips_left > 0:
-        print(pcg)
         action = generate_action(pcg.heads, pcg.tails)
-        print(action, "\n")
         if action == Action.LABEL_CHEATER:
-            if pcg.label_cheater():
-                wins += 1
+            pcg.label_cheater()
         if action == Action.LABEL_FAIR:
-            if pcg.label_fair():
-                wins += 1
+            pcg.label_fair()
         if action == Action.FLIP1:
             pcg.flip1()
         if action == Action.FLIP5:
             pcg.flip5()
-    print(pcg)
+    print(f"Final Score: {pcg.score}")
 
 
 if __name__ == "__main__":
