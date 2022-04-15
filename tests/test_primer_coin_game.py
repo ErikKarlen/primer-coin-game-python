@@ -1,7 +1,6 @@
 import unittest
 
 from primercoingame import PrimerCoinGame
-import primercoingame
 
 class Test_PrimerCoinGame(unittest.TestCase):
 
