@@ -1,6 +1,6 @@
-# Python Sim for Primer Coin Game
+# Python Implementation of Primer Coin Game
 
-Python implementation of Primer's Coin Game which can be used for simulating strategies.
+Python implementation of Primer's Coin Game which can be used for testing and simulations.
 To find out more about the game see [Primer's video](https://www.youtube.com/watch?v=QC91Bf8hQVo/) and try the [original game](https://primerlearning.org/).
 
 ## Getting Started
@@ -41,4 +41,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledegments
 
-* [Primer](https://www.youtube.com/watch?v=QC91Bf8hQVo) - For creating the original game and making awesome videos
+* [Primer](https://www.youtube.com/watch?v=QC91Bf8hQVo) - Thanks for creating the original game and making awesome videos
