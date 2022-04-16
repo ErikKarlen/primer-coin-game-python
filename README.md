@@ -12,7 +12,7 @@ To run the simulator you just need Python 3.6+ installed.
 ### Installing
 
 Go to https://www.python.org/ for instruction how to install Python on your machine.
-Use pip to install the package, e.g.:
+The package can be found on [PyPi](https://pypi.org/project/primer-coin-game/) so you can use pip to install the package:
 ```
 # python -m pip install --upgrade primer-coin-game
 ```
