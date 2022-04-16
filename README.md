@@ -14,10 +14,10 @@ To run the simulator you just need Python 3.6+ installed.
 Go to https://www.python.org/ for instruction how to install Python on your machine.
 Use pip to install the package, e.g.:
 ```
-# python3 -m pip install --upgrade primer-coin-game
+# python -m pip install --upgrade primer-coin-game
 ```
 
-Another way to install it is by manually cloning the repo and you should be able to run it. To clone you can use:
+Another way to install it is by manually cloning the repo. To clone you can use:
 ```
 # git clone https://github.com/ErikKarlen/primer-coin-game-python.git
 ```
@@ -29,6 +29,7 @@ Try running the example simulator in a terminal, e.g using:
 # cd primer-coin-game-python
 # python simulate.py
 ```
+It will simulate the game many times using the generate_action function to determine what to do in different cases and finally print the max score it managed to get.
 Feel free to try and implement your own generate_action function to see if you can make it more efficient and get a higher score.
 
 ## Authors
@@ -38,7 +39,7 @@ Erik Karlén
 ## Version History
 
 * 1.0
-  *  Initial working game and sim
+  *  Initial working game and simulator
 
 ## License
 
@@ -46,4 +47,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledegments
 
-* [Primer](https://www.youtube.com/watch?v=QC91Bf8hQVo) - Thanks for creating the original game and making awesome videos
+* [Primer](https://www.youtube.com/watch?v=QC91Bf8hQVo) - Thanks for creating the original game and making awesome videos!

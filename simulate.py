@@ -25,12 +25,14 @@ def generate_action(flips_left, num_heads, num_tails):
         Number of tails seen so far for current blob
     """
     num_flips = num_heads + num_tails
-    if num_flips < 10 and flips_left > 0:
+    if flips_left >= 5 and num_flips < 5:
+        return Action.FLIP5
+    elif flips_left >= 1 and num_flips < 12:
         return Action.FLIP1
-    elif num_tails == 0 or num_heads / num_tails < 1.71:
-        return Action.LABEL_FAIR
-    else:
+    elif num_tails == 0 or num_heads / num_tails > 1:
         return Action.LABEL_CHEATER
+    else:
+        return Action.LABEL_FAIR
 
 
 def main(args):
@@ -42,9 +44,9 @@ def main(args):
     args : list
         list of input arguments
     """
-    games = 1000
+    num_games = 1000
     max_score = 0
-    for i in range(games):
+    for _ in range(num_games):
         pcg = PrimerCoinGame(
             starting_flips=100,
             cheater_blob_chance=0.5,
@@ -52,15 +54,17 @@ def main(args):
             bonus_flips=15,
             penalty_flips=30,
         )
-        while pcg.flips_left >= 0:
+        while pcg.flips_left >= 0 and not (
+            pcg.flips_left == pcg.heads == pcg.tails == 0
+        ):
             action = generate_action(pcg.flips_left, pcg.heads, pcg.tails)
             if action == Action.LABEL_CHEATER:
                 pcg.label_cheater()
-            if action == Action.LABEL_FAIR:
+            elif action == Action.LABEL_FAIR:
                 pcg.label_fair()
-            if action == Action.FLIP1:
+            elif action == Action.FLIP1:
                 pcg.flip1()
-            if action == Action.FLIP5:
+            elif action == Action.FLIP5:
                 pcg.flip5()
         if pcg.score > max_score:
             max_score = pcg.score
